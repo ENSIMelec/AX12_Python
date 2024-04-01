@@ -4,7 +4,7 @@ Vous retrouverez ici tous les codes concernant la programmation de l'AX12 pour l
 
 ## Setup
 
-Suivez en premier lieu le tuto pou setup votre raspberry si ce n'est pas fait [Setup a new rasp](https://www.notion.so/ensim-elec/Setting-up-a-new-rasp-1121a751840546299e4f7144cff6ced2?pvs=4)
+Suivez en premier lieu le tuto pour setup votre raspberry si ce n'est pas fait [Setup a new rasp](https://www.notion.so/ensim-elec/Setting-up-a-new-rasp-1121a751840546299e4f7144cff6ced2?pvs=4)
 
 ## Installation
 
