@@ -38,6 +38,6 @@ class AX12_Ascenseur:
         self.lower()
 
 # Exemple d'utilisation
-if __name__ == "__main__":
-    pince = AX12_Ascenseur()
-    pince.run()
+# if __name__ == "__main__":
+#     pince = AX12_Ascenseur()
+#     pince.run()

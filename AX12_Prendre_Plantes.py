@@ -1,6 +1,11 @@
 import time
 from AX12_Pinces import AX12_Pinces
 from AX12_Ascenseur import AX12_Ascenseur
+#
+#
+# Exemple de succession d'actions pour prendre les plantes
+#
+#
 
 def prendre_plante():
     # Initialisation des instances des classes AX12_Pinces et AX12_Ascenseur
