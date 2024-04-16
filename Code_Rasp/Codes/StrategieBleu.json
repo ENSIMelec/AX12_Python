@@ -1,0 +1,195 @@
+{    
+    "initialisation": [
+        "AX12_Ascenseur",
+        "AX12_Pinces",
+        "AX12_Panneau",
+        "Comptage_Point",
+        "Asserv"
+  ], 
+  "actions": [
+    {
+        "classe": "Asserv",
+        "methode": "goto",
+        "argument": [
+            "300",
+            "0"
+        ]    
+    },
+    {
+        "classe": "Asserv",
+        "methode": "goto",
+        "argument": [
+            "300",
+            "150"
+        ]    
+    },
+    {
+        "classe": "Asserv",
+        "methode": "goto",
+        "argument": [
+            "680",
+            "150"
+        ]    
+    },
+    {
+        "classe": "Asserv",
+        "methode": "goto",
+        "argument": [
+            "680",
+            "300"
+        ]    
+    },
+    {
+        "classe": "AX12_Pinces",
+        "methode": "open_pince",
+        "argument": []
+    },
+    {
+        "classe": "Asserv",
+        "methode": "goto",
+        "argument": [
+            "680",
+            "450"
+        ]    
+    },
+    {
+        "classe": "AX12_Pinces",
+        "methode": "close_pince",
+        "argument": []
+    },
+    {
+        "classe": "Asserv",
+        "methode": "goto",
+        "argument": [
+            "350",
+            "450"
+        ]    
+    },
+    {
+        "classe": "Asserv",
+        "methode": "goto",
+        "argument": [
+            "350",
+            "700"
+        ]    
+    },
+    {
+        "classe": "AX12_Ascenseur",
+        "methode": "elevate",
+        "argument": []
+    },
+    {
+        "classe": "Asserv",
+        "methode": "goto",
+        "argument": [
+            "350",
+            "770"
+        ]    
+    },
+    {
+        "classe": "AX12_Ascenseur",
+        "methode": "lower_for_plant",
+        "argument": []
+    },
+    {
+        "classe": "AX12_Pinces",
+        "methode": "open_pince_stepbystep",
+        "argument": []
+    },
+    {
+        "classe": "ComptagePoints",
+        "methode": "ppts_plante_jardiniere",
+        "argument": [
+            "5"
+        ]
+    },
+    {
+        "classe": "Asserv",
+        "methode": "goto",
+        "argument": [
+            "350",
+            "650"
+        ]   
+    },
+    {
+        "classe": "AX12_Ascenseur",
+        "methode": "lower",
+        "argument": []
+    },
+    {
+        "classe": "Asserv",
+        "methode": "goto",
+        "argument": [
+            "350",
+            "700"
+        ]    
+    },
+    {
+        "classe": "Asserv",
+        "methode": "goto",
+        "argument": [
+            "600",
+            "700"
+        ]    
+    },
+    {
+        "classe": "AX12_Pinces",
+        "methode": "open_pince",
+        "argument": []
+    },
+    {
+        "classe": "Asserv",
+        "methode": "goto",
+        "argument": [
+            "700",
+            "700"
+        ]    
+    },
+    {
+        "classe": "AX12_Pinces",
+        "methode": "close_pince",
+        "argument": []
+    },
+    {
+        "classe": "Asserv",
+        "methode": "goto",
+        "argument": [
+            "700",
+            "1550"
+        ]     
+    },
+    {
+        "classe": "Asserv",
+        "methode": "goto",
+        "argument": [
+            "0",
+            "1550"
+        ]     
+    },
+    {
+        "classe": "AX12_Pinces",
+        "methode": "open_pince",
+        "argument": []
+    },
+    {
+        "classe": "ComptagePoints",
+        "methode": "pts_plante_violet_zone",
+        "argument": [
+            "2"
+        ]
+    },
+    {
+        "classe": "Asserv",
+        "methode": "goto",
+        "argument": [
+            "300",
+            "1550"
+        ]     
+    },
+    {
+        "classe": "ComptagePoints",
+        "methode": "pts_zone_finale",
+        "argument": []
+    }
+  ]
+}
