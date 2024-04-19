@@ -1,21 +1,16 @@
 import time
 from AX12_Pinces import AX12_Pinces
 from AX12_Ascenseur import AX12_Ascenseur
-#
-#
-# Exemple de succession d'actions pour prendre les plantes
-#
-#
+from Asserv import Asserv
+
 
 def prendre_plante():
     # Initialisation des instances des classes AX12_Pinces et AX12_Ascenseur
     ax12_pinces = AX12_Pinces()
     ax12_ascenseur = AX12_Ascenseur()
+    asserv = Asserv()
     
-    # Initialiser les moteurs des pinces et de l'ascenseur
-    ax12_pinces.initialize_motors()
-    ax12_ascenseur.initialize_motors()
-
+    asserv.goto(300.0,0.0)
     # Ouvrir la pince pour prendre les plantes
     ax12_pinces.open_pince()
     
@@ -25,7 +20,7 @@ def prendre_plante():
     # Monter l'ascenseur
     ax12_ascenseur.elevate()
     
-    time.sleep(10)
+    asserv.goto(300.0,0.0)
 
     # Descendre l'ascenseur
     ax12_ascenseur.lower_for_plant()
@@ -35,9 +30,15 @@ def prendre_plante():
     
     # Monter l'ascenseur
     ax12_ascenseur.elevate()
-    
+    #reculer
+    asserv.goto(300.0,0.0)
+
     # Fermer la pince à nouveau
     ax12_pinces.close_pince()
+    
+    #retour zone
+    asserv.goto(300.0,0.0)
+
 
 if __name__ == "__main__":
     # Prendre les plantes
