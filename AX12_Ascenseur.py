@@ -1,13 +1,13 @@
 import time
 import os
 from dynamixel_sdk import *
-from AX12_Control import AX12_Control
+from AX12_Python.AX12_Control import AX12_Control
 
 class AX12_Ascenseur:
     def __init__(self):
         # Initialisation du moteur avec l'ID 6
         self.ax12_ascenseur = AX12_Control(6) 
-        self.initial_position = 2
+        self.initial_position = 200
         self.plant_position = 335
         self.final_position = 1020
         self.ax12_ascenseur.connect()
@@ -32,7 +32,6 @@ class AX12_Ascenseur:
         return True
 
     def run(self):
-        self.initialize_motors()
         #self.elevate()
         self.lower()
 

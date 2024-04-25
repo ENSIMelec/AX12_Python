@@ -1,9 +1,10 @@
 import os
 import time
 from dynamixel_sdk import *
+from Globals_Variables import AX12_SERIAL
 
 class AX12_Control:
-    def __init__(self, dxl_id, baudrate=9600, devicename='/dev/serial/by-id/usb-Xevelabs_USB2AX_555333435373518142B0-if00'):
+    def __init__(self, dxl_id, baudrate=9600, devicename=AX12_SERIAL):
         self.DXL_ID = dxl_id
         self.BAUDRATE = baudrate
         self.DEVICENAME = devicename

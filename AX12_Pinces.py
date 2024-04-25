@@ -1,7 +1,7 @@
 import time
 import os
 from dynamixel_sdk import *
-from AX12_Control import AX12_Control
+from AX12_Python.AX12_Control import AX12_Control
 
 class AX12_Pinces:
     def __init__(self):
@@ -80,13 +80,12 @@ class AX12_Pinces:
         return True
 
                 
-                
     def run(self):
-        #self.open_pince()
+        self.open_pince()
         self.close_pince()
         #self.open_pince_stepbystep()
 
 # Exemple d'utilisation
-if __name__ == "__main__":
-    pince = AX12_Pinces()
-    pince.run()
+# if __name__ == "__main__":
+#     pince = AX12_Pinces()
+#     pince.run()
