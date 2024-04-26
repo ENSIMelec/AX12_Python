@@ -1,5 +1,6 @@
 import time
 from AX12_Python.AX12_Control import AX12_Control
+from Globals_Variables import DELAY
 
 class AX12_Panneau:
     def __init__(self):
@@ -14,7 +15,7 @@ class AX12_Panneau:
     
     def ramener_AX12_droit(self):
         self.AX12_Panneau_Droit.move(830)
-        time.sleep(2)
+        time.sleep(DELAY)
         return True
     
     # def ramener_AX12_gauche(self):  
@@ -25,7 +26,7 @@ class AX12_Panneau:
     
     def bouger_panneau_droit(self):
         self.AX12_Panneau_Droit.move(710)
-        time.sleep(2)
+        time.sleep(DELAY)
         return True
 
     # def bouger_panneau_gauche(self):
@@ -37,7 +38,7 @@ class AX12_Panneau:
     def disconnect(self):
         self.AX12_Panneau_Droit.disconnect()
         #self.AX12_Panneau_Gauche.disconnect()
-        time.sleep(2)
+        time.sleep(DELAY)
         return True
 
 if __name__ == '__main__':

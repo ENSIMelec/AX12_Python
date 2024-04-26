@@ -2,6 +2,7 @@ import time
 import os
 from dynamixel_sdk import *
 from AX12_Python.AX12_Control import AX12_Control
+from Globals_Variables import DELAY
 
 class AX12_Ascenseur:
     def __init__(self):
@@ -16,19 +17,19 @@ class AX12_Ascenseur:
     def elevate(self):
         # faire monter l'ascenseur
         self.ax12_ascenseur.move(self.initial_position) # à peu près X°
-        time.sleep(2)
+        time.sleep(DELAY)
         return True
 
     def lower(self):
         # faire descendre l'ascenseur
         self.ax12_ascenseur.move(self.final_position) # à peu près X°
-        time.sleep(2)
+        time.sleep(DELAY)
         return True
         
     def lower_for_plant(self):
         # faire descendre l'ascenseur
         self.ax12_ascenseur.move(self.plant_position) # à peu près X°
-        time.sleep(2)
+        time.sleep(DELAY)
         return True
 
     def run(self):
