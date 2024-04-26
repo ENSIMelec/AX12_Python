@@ -32,13 +32,13 @@ class AX12_Pinces:
         self.continuer_ajustement_motor_2 = True
         while self.continuer_ajustement_motor_1 or self.continuer_ajustement_motor_2:
             if self.angle_ajustement_ax12_motor_1 > 470:
-                self.angle_ajustement_ax12_motor_1 -= 10
+                self.angle_ajustement_ax12_motor_1 -= 15
                 self.ax12_motor_1.move(self.angle_ajustement_ax12_motor_1)
             else:
                 self.continuer_ajustement_motor_1 = False
                 
             if self.angle_ajustement_ax12_motor_2 < 270:
-                self.angle_ajustement_ax12_motor_2 += 10
+                self.angle_ajustement_ax12_motor_2 += 15
                 self.ax12_motor_2.move(self.angle_ajustement_ax12_motor_2)
             else:
                 self.continuer_ajustement_motor_2 = False
