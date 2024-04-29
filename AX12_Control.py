@@ -12,6 +12,8 @@ class AX12_Control:
         self.packetHandler = PacketHandler(1.0) # Protocol version 1.0
         self.torque_limit = 1023
         self.ADDR_MX_PRESENT_POSITION = 132
+        self.ADDR_AX_MOVING_SPEED = 32
+        self.ADDR_AX_SLOP = 29
         
     def connect(self):
         if self.portHandler.openPort():
@@ -81,6 +83,20 @@ class AX12_Control:
             print("[ID:%03d] PresPos:%03d" % (self.DXL_ID, dxl_present_position))
         return dxl_present_position
 
+    def set_speed(self, speed):
+        dxl_comm_result, dxl_error = self.packetHandler.write2ByteTxRx(self.portHandler, self.DXL_ID, self.ADDR_AX_MOVING_SPEED, speed)
+        if dxl_comm_result != COMM_SUCCESS:
+            print("%s" % self.packetHandler.getTxRxResult(dxl_comm_result))
+        elif dxl_error != 0:
+            print("%s" % self.packetHandler.getRxPacketError(dxl_error))
+            
+    def set_slop(self, slop):
+        dxl_comm_result, dxl_error = self.packetHandler.write2ByteTxRx(self.portHandler, self.DXL_ID, self.ADDR_AX_SLOP, slop)
+        if dxl_comm_result != COMM_SUCCESS:
+            print("%s" % self.packetHandler.getTxRxResult(dxl_comm_result))
+        elif dxl_error != 0:
+            print("%s" % self.packetHandler.getRxPacketError(dxl_error))
+            
         
     def disconnect(self):
         self.portHandler.closePort()

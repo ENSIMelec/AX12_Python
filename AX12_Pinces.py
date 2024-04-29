@@ -25,8 +25,8 @@ class AX12_Pinces:
 
     def open_pince(self):
         # Ouvrir la pince
-        self.ax12_motor_1.move(470) # à peu près 135°
-        self.ax12_motor_2.move(270) 
+        self.ax12_motor_1.move(490) # à peu près 135°
+        self.ax12_motor_2.move(250) 
         time.sleep(DELAY)
         return True
         
@@ -54,35 +54,31 @@ class AX12_Pinces:
         self.ax12_motor_1.move(580) 
         self.ax12_motor_2.move(140) 
 
-        load_threshold = 30  # Définir le seuil de charge de travail approprié
+        load_threshold = 150  # Définir le seuil de charge de travail approprié
 
         # Fermer la pince progressivement jusqu'à rencontrer une résistance
-        for i in range (1,5):
-            self.continuer_ajustement_motor_2 = True
-            self.continuer_ajustement_motor_1 = True
-            while self.continuer_ajustement_motor_1 or self.continuer_ajustement_motor_2:
-                time.sleep(0.75)
-                # Obtenez la charge de travail actuelle des moteurs
-                load_motor_1 = self.ax12_motor_1.read_load()
-                load_motor_2 = self.ax12_motor_2.read_load()
+        while self.continuer_ajustement_motor_1 or self.continuer_ajustement_motor_2:
+            time.sleep(0.75)
+            # Obtenez la charge de travail actuelle des moteurs
+            load_motor_1 = self.ax12_motor_1.read_load()
+            load_motor_2 = self.ax12_motor_2.read_load()
 
-                if load_motor_1 < load_threshold:
-                    self.angle_ajustement_ax12_motor_1 += self.reduce_angle//i
-                    self.ax12_motor_1.move(self.angle_ajustement_ax12_motor_1)
-                    print(f"Ajustement du moteur {self.ax12_motor_1.DXL_ID} effectué")
-                else:
-                    print(f"Ajustement du moteur {self.ax12_motor_1.DXL_ID} suffisant")
-                    self.continuer_ajustement_motor_1 = False
+            if load_motor_1 < load_threshold:
+                self.angle_ajustement_ax12_motor_1 += 20
+                self.ax12_motor_1.move(self.angle_ajustement_ax12_motor_1)
+                print(f"Ajustement du moteur {self.ax12_motor_1.DXL_ID} effectué")
+            else:
+                print(f"Ajustement du moteur {self.ax12_motor_1.DXL_ID} suffisant")
+                self.continuer_ajustement_motor_1 = False
 
 
-                if load_motor_2 < load_threshold:
-                    self.angle_ajustement_ax12_motor_2 -= self.reduce_angle//i
-                    self.ax12_motor_2.move(self.angle_ajustement_ax12_motor_2)
-                    print(f"Ajustement du moteur {self.ax12_motor_2.DXL_ID} effectué")
-                else:
-                    print(f"Ajustement du moteur {self.ax12_motor_2.DXL_ID} suffisant")
-                    self.continuer_ajustement_motor_2 = False
-        print("sortie")
+            if load_motor_2 < load_threshold:
+                self.angle_ajustement_ax12_motor_2 -= 20
+                self.ax12_motor_2.move(self.angle_ajustement_ax12_motor_2)
+                print(f"Ajustement du moteur {self.ax12_motor_2.DXL_ID} effectué")
+            else:
+                print(f"Ajustement du moteur {self.ax12_motor_2.DXL_ID} suffisant")
+                self.continuer_ajustement_motor_2 = False
         time.sleep(DELAY)
         return True
 
