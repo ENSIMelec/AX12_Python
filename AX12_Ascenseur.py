@@ -10,9 +10,9 @@ class AX12_Ascenseur:
         self.ax12_ascenseur = AX12_Control(6) 
         self.elevate_position = 200
         self.plant_position = 335
-        self.lower_position = 1020
+        self.lower_position = 1000
         self.ax12_ascenseur.connect()
-        self.ax12_ascenseur.move(1020)  # environ X°
+        self.ax12_ascenseur.move(self.lower_position)  # environ X°
         
     def elevate(self):
         # faire monter l'ascenseur

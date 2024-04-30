@@ -10,7 +10,7 @@ class AX12_Pinces:
         self.ax12_motor_1 = AX12_Control(3)
         self.ax12_motor_2 = AX12_Control(5)
         self.angle_ajustement_ax12_motor_1 = 580
-        self.angle_ajustement_ax12_motor_2 = 140
+        self.angle_ajustement_ax12_motor_2 = 150
         self.open_angle = 10
         self.reduce_angle = 50
         self.continuer_ajustement_motor_1 = True
@@ -20,7 +20,7 @@ class AX12_Pinces:
         self.ax12_motor_2.connect()
 
         self.ax12_motor_1.move(580)  # environ 170°
-        self.ax12_motor_2.move(140) 
+        self.ax12_motor_2.move(150) 
 
 
     def open_pince(self):
@@ -58,19 +58,24 @@ class AX12_Pinces:
 
         # Fermer la pince progressivement jusqu'à rencontrer une résistance
         while self.continuer_ajustement_motor_1 or self.continuer_ajustement_motor_2:
+            self.continuer_ajustement_motor_1 = True
+            self.continuer_ajustement_motor_2 = True
+            
             time.sleep(0.75)
             # Obtenez la charge de travail actuelle des moteurs
             load_motor_1 = self.ax12_motor_1.read_load()
             load_motor_2 = self.ax12_motor_2.read_load()
+            
+            pos_motor_1 = self.ax12_motor_1.read_present_position()
+            pos_motor_2 = self.ax12_motor_2.read_present_position()
 
-            if load_motor_1 < load_threshold:
+            if (load_motor_1 < load_threshold):
                 self.angle_ajustement_ax12_motor_1 += 20
                 self.ax12_motor_1.move(self.angle_ajustement_ax12_motor_1)
                 print(f"Ajustement du moteur {self.ax12_motor_1.DXL_ID} effectué")
             else:
                 print(f"Ajustement du moteur {self.ax12_motor_1.DXL_ID} suffisant")
                 self.continuer_ajustement_motor_1 = False
-
 
             if load_motor_2 < load_threshold:
                 self.angle_ajustement_ax12_motor_2 -= 20
