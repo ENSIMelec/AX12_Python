@@ -1,9 +1,18 @@
 import time
 from AX12_Python.AX12_Control import AX12_Control
-from Globals_Variables import DELAY
+from Globals_Variables import *
+import logging
+import logging.config
+
 
 class AX12_Panneau:
     def __init__(self):
+        # Charger la configuration de logging
+        logging.config.fileConfig(LOGS_CONF_PATH)
+
+        # Créer un logger
+        self.logger = logging.getLogger(f"AX12_Panneau")
+
         # Initialisation des moteurs avec les IDs id_1 et id_2
         self.AX12_Panneau_Droit = AX12_Control(4)
         self.AX12_Panneau_Gauche = AX12_Control(8)

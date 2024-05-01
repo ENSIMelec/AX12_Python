@@ -2,10 +2,19 @@ import time
 import os
 from dynamixel_sdk import *
 from AX12_Python.AX12_Control import AX12_Control
-from Globals_Variables import DELAY
+from Globals_Variables import *
+import logging
+import logging.config
+
 
 class AX12_Pinces:
     def __init__(self):
+        # Charger la configuration de logging
+        logging.config.fileConfig(LOGS_CONF_PATH)
+
+        # Créer un logger
+        self.logger = logging.getLogger(f"AX12_Pinces")
+
         # Initialisation des moteurs avec les IDs 3 et 5
         self.ax12_motor_1 = AX12_Control(3)
         self.ax12_motor_2 = AX12_Control(5)
@@ -25,8 +34,8 @@ class AX12_Pinces:
 
     def open_pince(self):
         # Ouvrir la pince
-        self.ax12_motor_1.move(490) # à peu près 135°
-        self.ax12_motor_2.move(250) 
+        self.ax12_motor_1.move(380) # à peu près 135°
+        self.ax12_motor_2.move(360) 
         time.sleep(DELAY)
         return True
         
@@ -94,6 +103,7 @@ class AX12_Pinces:
         #self.open_pince_stepbystep()
 
 # Exemple d'utilisation
-# if __name__ == "__main__":
-#     pince = AX12_Pinces()
-#     pince.run()
+if __name__ == "__main__":
+    pince = AX12_Pinces()
+    for i in range(10):
+        pince.close_pince()

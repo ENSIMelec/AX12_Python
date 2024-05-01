@@ -3,9 +3,17 @@ import os
 from dynamixel_sdk import *
 from AX12_Python.AX12_Control import AX12_Control
 from Globals_Variables import *
+import logging
+import logging.config
 
 class AX12_Ascenseur:
     def __init__(self):
+        # Charger la configuration de logging
+        logging.config.fileConfig(LOGS_CONF_PATH)
+
+        # Créer un logger
+        self.logger = logging.getLogger(f"AX12_Ascenseur")
+
         # Initialisation du moteur avec l'ID 6
         self.ax12_ascenseur = AX12_Control(6) 
         self.elevate_position = 200
@@ -33,10 +41,12 @@ class AX12_Ascenseur:
         return True
 
     def run(self):
-        #self.elevate()
+        self.elevate()
         self.lower()
 
 # Exemple d'utilisation
 if __name__ == "__main__":
     pince = AX12_Ascenseur()
-    pince.run()
+    pince.elevate()
+    time.sleep(2)
+    pince.lower()
