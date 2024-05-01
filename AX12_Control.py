@@ -6,13 +6,14 @@ import logging
 import logging.config
 
 class AX12_Control:
-    def __init__(self, dxl_id, baudrate=9600, devicename=AX12_SERIAL):
+    def __init__(self, dxl_id, name=None, baudrate=9600, devicename=AX12_SERIAL):
         # Charger la configuration de logging
         logging.config.fileConfig(LOGS_CONF_PATH)
 
         # Créer un logger
-        self.logger = logging.getLogger(f"AX12_Control({dxl_id})")
+        self.logger = logging.getLogger(f"AX12_Control({name})")
 
+        self.name = name
         self.DXL_ID = dxl_id
         self.BAUDRATE = baudrate
         self.DEVICENAME = devicename
@@ -25,9 +26,9 @@ class AX12_Control:
         
     def connect(self):
         if self.portHandler.openPort():
-            self.logger.info("Port ouvert avec succès")
+            self.logger.info(f"Port ouvert avec succès ID: {self.DXL_ID}")
         else:
-            self.logger.error("Échec de l'ouverture du port")
+            self.logger.error(f"Échec de l'ouverture du port ID: {self.DXL_ID}")
             getch()
             quit()
 
@@ -48,6 +49,8 @@ class AX12_Control:
         
         self.packetHandler.write1ByteTxRx(self.portHandler, self.DXL_ID, 24, 1)  # Adresse pour activer le mode de torque
 
+        return True
+
     def move(self, position):
         dxl_comm_result, dxl_error = self.packetHandler.write2ByteTxRx(self.portHandler, self.DXL_ID, 30, position)
         if dxl_comm_result != COMM_SUCCESS:
@@ -64,13 +67,11 @@ class AX12_Control:
         dxl_present_load, dxl_comm_result, dxl_error = self.packetHandler.read2ByteTxRx(self.portHandler, self.DXL_ID, 40)
         if dxl_comm_result != COMM_SUCCESS:
             self.logger.error(f"(read_load) {self.packetHandler.getTxRxResult(dxl_comm_result)}")
-            return False
         elif dxl_error != 0:
             self.logger.error(f"(read_load) {self.packetHandler.getRxPacketError(dxl_error)}")
-            return False
         else:
             self.logger.info(f"Load du servo : {dxl_present_load}")
-            return True
+            return dxl_present_load
     
 
     def write(self, address, value):
@@ -91,13 +92,11 @@ class AX12_Control:
         dxl_present_position, dxl_comm_result, dxl_error = self.packetHandler.read2ByteTxRx(self.portHandler, self.DXL_ID, self.ADDR_MX_PRESENT_POSITION)
         if dxl_comm_result != COMM_SUCCESS:
             self.logger.error(f"(read_present_position) {self.packetHandler.getTxRxResult(dxl_comm_result)}")
-            return False
         elif dxl_error != 0:
             self.logger.error(f"(read_present_position) {self.packetHandler.getRxPacketError(dxl_error)}")
-            return False
         else:
-            self.logger.info("Current pos :{dxl_present_position}")
-            return True
+            self.logger.info(f"Current pos :{dxl_present_position}")
+            return dxl_present_position
 
     def set_speed(self, speed):
         dxl_comm_result, dxl_error = self.packetHandler.write2ByteTxRx(self.portHandler, self.DXL_ID, self.ADDR_AX_MOVING_SPEED, speed)

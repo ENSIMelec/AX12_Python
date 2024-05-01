@@ -15,7 +15,7 @@ class AX12_Ascenseur:
         self.logger = logging.getLogger(f"AX12_Ascenseur")
 
         # Initialisation du moteur avec l'ID 6
-        self.ax12_ascenseur = AX12_Control(6) 
+        self.ax12_ascenseur = AX12_Control(6,"Ascenceur") 
         self.elevate_position = 200
         self.plant_position = 335
         self.lower_position = 1000

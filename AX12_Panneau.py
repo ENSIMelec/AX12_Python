@@ -14,8 +14,8 @@ class AX12_Panneau:
         self.logger = logging.getLogger(f"AX12_Panneau")
 
         # Initialisation des moteurs avec les IDs id_1 et id_2
-        self.AX12_Panneau_Droit = AX12_Control(4)
-        self.AX12_Panneau_Gauche = AX12_Control(8)
+        self.AX12_Panneau_Droit = AX12_Control(4,"Bras Droit")
+        self.AX12_Panneau_Gauche = AX12_Control(8,"Bras Gauche")
         self.AX12_Panneau_Droit.connect()
         self.AX12_Panneau_Gauche.connect()
         self.AX12_Panneau_Droit.set_slop(0xFE)

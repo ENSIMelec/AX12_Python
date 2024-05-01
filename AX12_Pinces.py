@@ -16,8 +16,8 @@ class AX12_Pinces:
         self.logger = logging.getLogger(f"AX12_Pinces")
 
         # Initialisation des moteurs avec les IDs 3 et 5
-        self.ax12_motor_1 = AX12_Control(3)
-        self.ax12_motor_2 = AX12_Control(5)
+        self.ax12_motor_1 = AX12_Control(3,"Pince Gauche")
+        self.ax12_motor_2 = AX12_Control(5,"Pince Droite")
         self.angle_ajustement_ax12_motor_1 = 580
         self.angle_ajustement_ax12_motor_2 = 150
         self.open_angle = 10
@@ -63,35 +63,35 @@ class AX12_Pinces:
         self.ax12_motor_1.move(580) 
         self.ax12_motor_2.move(140) 
 
-        load_threshold = 150  # Définir le seuil de charge de travail approprié
+        load_threshold = 150.0  # Définir le seuil de charge de travail approprié
+        
+        self.continuer_ajustement_motor_1 = True
+        self.continuer_ajustement_motor_2 = True
 
         # Fermer la pince progressivement jusqu'à rencontrer une résistance
         while self.continuer_ajustement_motor_1 or self.continuer_ajustement_motor_2:
-            self.continuer_ajustement_motor_1 = True
-            self.continuer_ajustement_motor_2 = True
-            
             time.sleep(0.75)
             # Obtenez la charge de travail actuelle des moteurs
             load_motor_1 = self.ax12_motor_1.read_load()
             load_motor_2 = self.ax12_motor_2.read_load()
             
-            pos_motor_1 = self.ax12_motor_1.read_present_position()
-            pos_motor_2 = self.ax12_motor_2.read_present_position()
+            # pos_motor_1 = self.ax12_motor_1.read_present_position()
+            # pos_motor_2 = self.ax12_motor_2.read_present_position()
 
-            if (load_motor_1 < load_threshold):
+            if (load_motor_1 < load_threshold) and self.continuer_ajustement_motor_1:
                 self.angle_ajustement_ax12_motor_1 += 20
                 self.ax12_motor_1.move(self.angle_ajustement_ax12_motor_1)
-                print(f"Ajustement du moteur {self.ax12_motor_1.DXL_ID} effectué")
+                self.logger.info(f"Ajustement de la {self.ax12_motor_1.name} effectué à {self.angle_ajustement_ax12_motor_1} couple actuel : {load_motor_1}")
             else:
-                print(f"Ajustement du moteur {self.ax12_motor_1.DXL_ID} suffisant")
+                self.logger.info(f"Serrage de la {self.ax12_motor_1.name} terminé, position finale : {self.angle_ajustement_ax12_motor_1}")
                 self.continuer_ajustement_motor_1 = False
 
-            if load_motor_2 < load_threshold:
+            if load_motor_2 < load_threshold and self.continuer_ajustement_motor_2:
                 self.angle_ajustement_ax12_motor_2 -= 20
                 self.ax12_motor_2.move(self.angle_ajustement_ax12_motor_2)
-                print(f"Ajustement du moteur {self.ax12_motor_2.DXL_ID} effectué")
+                self.logger.info(f"Ajustement de la {self.ax12_motor_2.name} effectué à {self.angle_ajustement_ax12_motor_2} couple actuel : {load_motor_2}")
             else:
-                print(f"Ajustement du moteur {self.ax12_motor_2.DXL_ID} suffisant")
+                self.logger.info(f"Serrage de la {self.ax12_motor_2.name} terminé, position finale : {self.angle_ajustement_ax12_motor_2}")
                 self.continuer_ajustement_motor_2 = False
         time.sleep(DELAY)
         return True
@@ -105,5 +105,4 @@ class AX12_Pinces:
 # Exemple d'utilisation
 if __name__ == "__main__":
     pince = AX12_Pinces()
-    for i in range(10):
-        pince.close_pince()
+    pince.close_pince()
