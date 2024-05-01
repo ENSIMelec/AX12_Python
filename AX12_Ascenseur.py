@@ -2,7 +2,7 @@ import time
 import os
 from dynamixel_sdk import *
 from AX12_Python.AX12_Control import AX12_Control
-from Globals_Variables import DELAY
+from Globals_Variables import *
 
 class AX12_Ascenseur:
     def __init__(self):
