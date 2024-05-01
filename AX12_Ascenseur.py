@@ -18,7 +18,7 @@ class AX12_Ascenseur:
         self.ax12_ascenseur = AX12_Control(6,"Ascenceur") 
         self.elevate_position = 200
         self.plant_position = 335
-        self.lower_position = 1000
+        self.lower_position = 850
         self.ax12_ascenseur.connect()
         self.ax12_ascenseur.move(self.lower_position)  # environ X°
         
@@ -47,6 +47,5 @@ class AX12_Ascenseur:
 # Exemple d'utilisation
 if __name__ == "__main__":
     pince = AX12_Ascenseur()
-    pince.elevate()
     time.sleep(2)
     pince.lower()
