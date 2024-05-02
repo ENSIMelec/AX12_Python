@@ -16,29 +16,24 @@ class AX12_Ascenseur:
 
         # Initialisation du moteur avec l'ID 6
         self.ax12_ascenseur = AX12_Control(6,"Ascenceur") 
-        self.elevate_position = 200
-        self.plant_position = 335
+        self.elevate_position = 0
+        self.plant_position = 200
         self.lower_position = 850
         self.ax12_ascenseur.connect()
+        self.ax12_ascenseur.set_speed(1023)
         self.ax12_ascenseur.move(self.lower_position)  # environ X°
         
     def elevate(self):
         # faire monter l'ascenseur
-        self.ax12_ascenseur.move(self.elevate_position) # à peu près X°
-        time.sleep(DELAY)
-        return True
+        return self.ax12_ascenseur.move(self.elevate_position)
 
     def lower(self):
         # faire descendre l'ascenseur
-        self.ax12_ascenseur.move(self.lower_position) # à peu près X°
-        time.sleep(DELAY)
-        return True
+        return self.ax12_ascenseur.move(self.lower_position)
         
     def lower_for_plant(self):
         # faire descendre l'ascenseur
-        self.ax12_ascenseur.move(self.plant_position) # à peu près X°
-        time.sleep(DELAY)
-        return True
+        return self.ax12_ascenseur.move_while(self.plant_position)
 
     def run(self):
         self.elevate()
@@ -47,5 +42,4 @@ class AX12_Ascenseur:
 # Exemple d'utilisation
 if __name__ == "__main__":
     pince = AX12_Ascenseur()
-    time.sleep(2)
-    pince.lower()
+    pince.lower_for_plant()

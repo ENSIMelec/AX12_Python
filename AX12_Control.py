@@ -20,7 +20,7 @@ class AX12_Control:
         self.portHandler = PortHandler(self.DEVICENAME)
         self.packetHandler = PacketHandler(1.0) # Protocol version 1.0
         self.torque_limit = 1023
-        self.ADDR_MX_PRESENT_POSITION = 132
+        self.ADDR_MX_PRESENT_POSITION = 36
         self.ADDR_AX_MOVING_SPEED = 32
         self.ADDR_AX_SLOP = 29
         
@@ -62,7 +62,13 @@ class AX12_Control:
         else:
             self.logger.info(f"Position réglée à {position} avec succès")
             return True
-            
+        
+    def move_while(self, goal,tolerance=0.01):
+        self.move(goal)
+        while not (goal * (1-tolerance) <= self.read_present_position() <= goal * (1+tolerance)):
+            time.sleep(0.1)
+        return True
+
     def read_load(self):
         dxl_present_load, dxl_comm_result, dxl_error = self.packetHandler.read2ByteTxRx(self.portHandler, self.DXL_ID, 40)
         if dxl_comm_result != COMM_SUCCESS:
@@ -121,7 +127,7 @@ class AX12_Control:
         else:
             self.logger.info(f"Slop réglé à {slop} avec succès")
             return True
-        
+       
     def disconnect(self):
         self.portHandler.closePort()
 

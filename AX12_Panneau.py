@@ -25,25 +25,21 @@ class AX12_Panneau:
         
     
     def ramener_AX12_droit(self):
-        self.AX12_Panneau_Droit.move(750)
-        time.sleep(DELAY)
-        return True
+        self.AX12_Panneau_Droit.set_speed(1023)
+        return self.AX12_Panneau_Droit.move(750)
     
     def ramener_AX12_gauche(self):  
-        self.AX12_Panneau_Gauche.move(495) 
-        time.sleep(DELAY)
-        return True
+        self.AX12_Panneau_Gauche.set_speed(1023)
+        return self.AX12_Panneau_Gauche.move(495)
     
     
     def bouger_panneau_droit(self):
-        self.AX12_Panneau_Droit.move(660)
-        time.sleep(DELAY)
-        return True
+        self.AX12_Panneau_Droit.set_speed(100)
+        return self.AX12_Panneau_Droit.move_while(660)
 
     def bouger_panneau_gauche(self):
-        self.AX12_Panneau_Gauche.move(590)
-        time.sleep(DELAY) #Pour laisser le temps de stabiliser le panneau
-        return True
+        self.AX12_Panneau_Gauche.set_speed(100)
+        return self.AX12_Panneau_Gauche.move_while(590)
         
     
     def disconnect(self):
