@@ -32,6 +32,7 @@ class AX12_Pinces:
         self.ax12_motor_droit.move(150) 
 
     def move_while_pince(self,goal_pince_gauche,goal_pince_droite,tolerance=0.01,speed=1023):
+        tolerance = tolerance * 1024
         self.ax12_motor_gauche.set_speed(speed)
         self.ax12_motor_droit.set_speed(speed)
         self.ax12_motor_gauche.move(goal_pince_gauche)
@@ -40,9 +41,9 @@ class AX12_Pinces:
         goalD = True
         while goalG or goalD :
             time.sleep(0.1)
-            if goal_pince_gauche * (1-tolerance) <= self.ax12_motor_gauche.read_present_position() <= goal_pince_gauche * (1+tolerance) :
+            if goal_pince_gauche - tolerance <= self.ax12_motor_gauche.read_present_position() <= goal_pince_gauche + tolerance :
                 goalG = False
-            if goal_pince_droite * (1-tolerance) <= self.ax12_motor_droit.read_present_position() <= goal_pince_droite * (1+tolerance) :
+            if goal_pince_droite - tolerance <= self.ax12_motor_droit.read_present_position() <= goal_pince_droite + tolerance :
                 goalD = False
         return True
 

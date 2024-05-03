@@ -18,8 +18,6 @@ class AX12_Panneau:
         self.AX12_Panneau_Gauche = AX12_Control(8,"Bras Gauche")
         self.AX12_Panneau_Droit.connect()
         self.AX12_Panneau_Gauche.connect()
-        self.AX12_Panneau_Droit.set_slop(0xFE)
-        self.AX12_Panneau_Gauche.set_slop(0xFE)
         self.ramener_AX12_droit()
         self.ramener_AX12_gauche()
         
