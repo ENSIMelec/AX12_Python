@@ -34,7 +34,12 @@ class AX12_Pinces:
         time.sleep(0.2)
 
         self.ax12_motor_gauche.move(720)  # environ 170°
-        self.ax12_motor_droit.move(0) 
+        self.ax12_motor_droit.move(0)
+
+        self.logger.info("Pinces initialized.")
+        
+        if self.app != None :
+            self.app.AX12_Pinces_initialized()
 
     def move_while_pince(self,goal_pince_gauche,goal_pince_droite,tolerance=0.01,speed=1023):
         tolerance = tolerance * 1024
@@ -113,4 +118,3 @@ class AX12_Pinces:
 if __name__ == "__main__":
     pince = AX12_Pinces()
     pince.open_pince()
-    # pince.open_pince()

@@ -22,6 +22,11 @@ class AX12_Panneau:
         self.ramener_AX12_droit()
         self.ramener_AX12_gauche()
         
+        self.logger.info("Panneau initialized.")
+        
+        if self.app != None :
+            self.app.AX12_Panneau_initialized()
+        
     
     def ramener_AX12_droit(self):
         self.AX12_Panneau_Droit.set_speed(1023)
