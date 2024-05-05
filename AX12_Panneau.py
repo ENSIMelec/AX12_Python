@@ -6,13 +6,14 @@ import logging.config
 
 
 class AX12_Panneau:
-    def __init__(self):
+    def __init__(self,app=None):
         # Charger la configuration de logging
         logging.config.fileConfig(LOGS_CONF_PATH)
 
         # Créer un logger
         self.logger = logging.getLogger(f"AX12_Panneau")
 
+        self.app = app
         # Initialisation des moteurs avec les IDs id_1 et id_2
         self.AX12_Panneau_Droit = AX12_Control(4,"Bras Droit")
         self.AX12_Panneau_Gauche = AX12_Control(8,"Bras Gauche")
@@ -32,11 +33,11 @@ class AX12_Panneau:
     
     
     def bouger_panneau_droit(self):
-        self.AX12_Panneau_Droit.set_speed(100)
+        self.AX12_Panneau_Droit.set_speed(128)
         return self.AX12_Panneau_Droit.move_while(660)
 
     def bouger_panneau_gauche(self):
-        self.AX12_Panneau_Gauche.set_speed(100)
+        self.AX12_Panneau_Gauche.set_speed(128)
         return self.AX12_Panneau_Gauche.move_while(590)
         
     
