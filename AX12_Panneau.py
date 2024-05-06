@@ -8,10 +8,10 @@ import logging.config
 class AX12_Panneau:
     def __init__(self,app=None):
         # Charger la configuration de logging
-        logging.config.fileConfig(LOGS_CONF_PATH)
+        logging.config.fileConfig(LOGS_CONF_PATH,disable_existing_loggers=False)
 
         # Créer un logger
-        self.logger = logging.getLogger(f"AX12_Panneau")
+        self.logger = logging.getLogger("AX12")
 
         self.app = app
         # Initialisation des moteurs avec les IDs id_1 et id_2
@@ -22,7 +22,7 @@ class AX12_Panneau:
         self.ramener_AX12_droit()
         self.ramener_AX12_gauche()
         
-        self.logger.info("Panneau initialized.")
+        self.logger.info("[Panneau] Panneau initialized.")
         
         if self.app != None :
             self.app.AX12_Panneau_initialized()

@@ -10,10 +10,10 @@ import logging.config
 class AX12_Pinces:
     def __init__(self,app=None):
         # Charger la configuration de logging
-        logging.config.fileConfig(LOGS_CONF_PATH)
+        logging.config.fileConfig(LOGS_CONF_PATH,disable_existing_loggers=False)
 
         # Créer un logger
-        self.logger = logging.getLogger(f"AX12_Pinces")
+        self.logger = logging.getLogger("AX12")
         
         self.app = app
         # Initialisation des moteurs avec les IDs 3 et 5
@@ -36,7 +36,7 @@ class AX12_Pinces:
         self.ax12_motor_gauche.move(720)  # environ 170°
         self.ax12_motor_droit.move(0)
 
-        self.logger.info("Pinces initialized.")
+        self.logger.info("[Pinces] Pinces initialized.")
         
         if self.app != None :
             self.app.AX12_Pinces_initialized()
