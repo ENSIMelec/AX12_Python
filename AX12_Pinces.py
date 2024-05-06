@@ -8,14 +8,14 @@ import logging.config
 
 
 class AX12_Pinces:
-    def __init__(self,app=None):
+    def __init__(self,interface=None):
         # Charger la configuration de logging
         logging.config.fileConfig(LOGS_CONF_PATH,disable_existing_loggers=False)
 
         # Créer un logger
         self.logger = logging.getLogger("AX12")
         
-        self.app = app
+        self.interface = interface
         # Initialisation des moteurs avec les IDs 3 et 5
         self.ax12_motor_gauche = AX12_Control(3,"Pince Gauche")
         self.ax12_motor_droit = AX12_Control(5,"Pince Droite")
@@ -37,9 +37,9 @@ class AX12_Pinces:
         self.ax12_motor_droit.move(0)
 
         self.logger.info("[Pinces] Pinces initialized.")
-        
-        if self.app != None :
-            self.app.AX12_Pinces_initialized()
+
+        if self.interface != None :
+            self.interface.after(0, self.interface.AX12_Pinces_initialized())
 
     def move_while_pince(self,goal_pince_gauche,goal_pince_droite,tolerance=0.01,speed=1023):
         tolerance = tolerance * 1024
@@ -87,7 +87,7 @@ class AX12_Pinces:
         time.sleep(DELAY)
         return True
 
-    def close_pince(self,speed=64):
+    def close_pince(self,speed=32):
         self.ax12_motor_gauche.set_speed(speed)
         self.ax12_motor_droit.set_speed(speed)
         time.sleep(0.2)

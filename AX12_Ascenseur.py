@@ -7,14 +7,14 @@ import logging
 import logging.config
 
 class AX12_Ascenseur:
-    def __init__(self,app=None):
+    def __init__(self,interface=None):
         # Charger la configuration de logging
         logging.config.fileConfig(LOGS_CONF_PATH,disable_existing_loggers=False)
 
         # Créer un logger
         self.logger = logging.getLogger("AX12")
 
-        self.app=app
+        self.interface=interface
         # Initialisation du moteur avec l'ID 6
         self.ax12_ascenseur = AX12_Control(6,"Ascenceur") 
         self.elevate_position = 10
@@ -27,8 +27,8 @@ class AX12_Ascenseur:
         
         self.logger.info("[Ascenceur] Ascenseur initialized.")
         
-        if self.app != None :
-            self.app.AX12_Ascenceur_initialized()
+        if self.interface != None :
+            self.interface.after(0, self.interface.AX12_Ascenceur_initialized())
         
     def elevate(self):
         # faire monter l'ascenseur

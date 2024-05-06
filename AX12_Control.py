@@ -118,7 +118,10 @@ class AX12_Control:
         self.move(goal)
         tolerance = tolerance * 1024
         while not (goal - tolerance <= self.read_present_position() <= goal + tolerance):
-            time.sleep(0.1)
+            time.sleep(0.15)
+            if (self.get_present_speed == 0):
+                break
+            time.sleep(0.15)
         return True
 
     def read_load(self):
