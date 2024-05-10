@@ -23,7 +23,7 @@ class AX12_Ascenseur:
         self.ax12_ascenseur.connect()
         self.ax12_ascenseur.set_angle_limit(0,1023) #sens horaire pour que le 1023 en bas
         # 103 mm d'amplitude pour l'ascenseur
-        self.ax12_ascenseur.move(self.lower_position)
+        self.ax12_ascenseur.move(1000)
         
         self.logger.info("[Ascenceur] Ascenseur initialized.")
         
