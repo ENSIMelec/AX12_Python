@@ -117,11 +117,14 @@ class AX12_Control:
     def move_while(self, goal,tolerance=0.01):
         self.move(goal)
         tolerance = tolerance * 1024
-        while not (goal - tolerance <= self.read_present_position() <= goal + tolerance):
-            time.sleep(0.15)
-            if (self.get_present_speed == 0):
-                break
-            time.sleep(0.15)
+        try : 
+            while not (goal - tolerance <= self.read_present_position() <= goal + tolerance):
+                time.sleep(0.2)
+                if (self.get_present_speed == 0):
+                    break
+                time.sleep(0.2)
+        except :
+            return True
         return True
 
     def read_load(self):
@@ -315,7 +318,7 @@ class AX12_Control:
             self.logger.info(f"[{self.name}] LED set to {'on' if on_off else 'off'}")
             return True
 
-    def get_return_delay_time(self):
+    def x(self):
         delay, result, error = self.packetHandler.read1ByteTxRx(self.portHandler, self.DXL_ID, ADDR_AX_RETURN_DELAY_TIME)
         if result != COMM_SUCCESS:
             self.logger.error(f"[{self.name}] (get_return_delay_time) {self.packetHandler.getTxRxResult(result)}")

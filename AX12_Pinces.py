@@ -28,7 +28,7 @@ class AX12_Pinces:
         
         self.ax12_motor_gauche.connect()
         self.ax12_motor_droit.connect()
-        time.sleep(0.1)
+        time.sleep(0.2)
         self.ax12_motor_gauche.set_speed(1023)
         self.ax12_motor_droit.set_speed(1023)
         time.sleep(0.2)
@@ -45,13 +45,13 @@ class AX12_Pinces:
         tolerance = tolerance * 1024
         self.ax12_motor_gauche.set_speed(speed)
         self.ax12_motor_droit.set_speed(speed)
-        time.sleep(0.2)
+        time.sleep(0.25)
         self.ax12_motor_gauche.move(goal_pince_gauche)
         self.ax12_motor_droit.move(goal_pince_droite)
         goalG = True
         goalD = True
         while goalG or goalD :
-            time.sleep(0.1)
+            time.sleep(0.25)
             if goal_pince_gauche - tolerance <= self.ax12_motor_gauche.read_present_position() <= goal_pince_gauche + tolerance :
                 goalG = False
             if goal_pince_droite - tolerance <= self.ax12_motor_droit.read_present_position() <= goal_pince_droite + tolerance :
@@ -61,13 +61,13 @@ class AX12_Pinces:
     def open_pince(self,speed=1023):
         self.ax12_motor_gauche.set_speed(speed)
         self.ax12_motor_droit.set_speed(speed)
-        time.sleep(0.2)
-        self.ax12_motor_gauche.move(380)
+        time.sleep(0.25)
+        self.ax12_motor_gauche.move(340)
         self.ax12_motor_droit.move(360)
         return True
     
     def open_pince_bloquant(self,speed=1023):
-        return self.move_while_pince(380,360,speed)
+        return self.move_while_pince(340,360,speed)
         
     def open_pince_stepbystep(self):
         self.continuer_ajustement_motor_gauche = True
@@ -90,7 +90,7 @@ class AX12_Pinces:
     def close_pince(self,speed=32):
         self.ax12_motor_gauche.set_speed(speed)
         self.ax12_motor_droit.set_speed(speed)
-        time.sleep(0.2)
+        time.sleep(0.25)
         self.ax12_motor_gauche.move(720) 
         self.ax12_motor_droit.move(0) 
         return True
@@ -98,14 +98,23 @@ class AX12_Pinces:
     def close_pince_bloquant(self,speed=128):
         self.ax12_motor_gauche.set_speed(speed)
         self.ax12_motor_droit.set_speed(speed)
-        time.sleep(0.2)
+        time.sleep(0.25)
         self.ax12_motor_gauche.move(720) 
         self.ax12_motor_droit.move(0) 
         time.sleep(0.25) # c le return delay 250 MS
-        while(self.ax12_motor_gauche.get_present_speed() > 1 and self.ax12_motor_droit.get_present_speed() > 1):
-            time.sleep(0.2)
-        self.ax12_motor_gauche.move(self.ax12_motor_gauche.read_present_position()+10)
-        self.ax12_motor_droit.move(self.ax12_motor_droit.read_present_position()-10)
+        try :
+            while(self.ax12_motor_gauche.get_present_speed() > 1 and self.ax12_motor_droit.get_present_speed() > 1):
+                time.sleep(0.25)
+        except :
+            return True
+        try :
+            self.ax12_motor_gauche.move(self.ax12_motor_gauche.read_present_position()+10)
+        except :
+            return True
+        try :
+            self.ax12_motor_droit.move(max(self.ax12_motor_droit.read_present_position()-10,5))
+        except :
+            return True
         return True
 
                 
@@ -117,4 +126,3 @@ class AX12_Pinces:
 # Exemple d'utilisation
 if __name__ == "__main__":
     pince = AX12_Pinces()
-    pince.open_pince()

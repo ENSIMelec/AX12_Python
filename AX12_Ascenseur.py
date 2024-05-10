@@ -45,4 +45,3 @@ class AX12_Ascenseur:
 # Exemple d'utilisation
 if __name__ == "__main__":
     pince = AX12_Ascenseur()
-    pince.elevate()
