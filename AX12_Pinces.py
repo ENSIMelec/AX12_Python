@@ -19,7 +19,7 @@ class AX12_Pinces:
         # Initialisation des moteurs avec les IDs 3 et 5
         self.ax12_motor_gauche = AX12_Control(3,"Pince Gauche")
         self.ax12_motor_droit = AX12_Control(5,"Pince Droite")
-        self.ouvert_gauche = 340
+        self.ouvert_gauche = 350
         self.ouvert_droit = 360
         self.fermer_gauche = 720
         self.fermer_droit = 0
@@ -133,4 +133,3 @@ class AX12_Pinces:
 # Exemple d'utilisation
 if __name__ == "__main__":
     pince = AX12_Pinces()
-    pince.close_pince()
